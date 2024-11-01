@@ -8,6 +8,7 @@ import time
 import requests
 import shutil
 import asyncio
+from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.chrome.service import Service
 
 # Настройка логирования
@@ -21,7 +22,6 @@ application = Application.builder().token(TELEGRAM_TOKEN).build()
 
 # Настройка Selenium WebDriver
 chrome_path = shutil.which("google-chrome")
-chromedriver_path = shutil.which("chromedriver")
 
 options = webdriver.ChromeOptions()
 options.add_argument("--headless")  # Запуск в безголовом режиме
@@ -29,7 +29,7 @@ options.add_argument("--no-sandbox")
 options.add_argument("--disable-dev-shm-usage")
 options.binary_location = chrome_path
 
-service = Service(chromedriver_path)
+service = Service(ChromeDriverManager().install())
 driver = webdriver.Chrome(service=service, options=options)
 
 # Глобальные переменные для хранения ссылок и текста сообщений
