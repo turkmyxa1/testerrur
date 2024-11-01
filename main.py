@@ -1,6 +1,6 @@
 import logging
 from telegram import Bot, Update
-from telegram.ext import Updater, CommandHandler, MessageHandler, Filters, CallbackContext
+from telegram.ext import Updater, CommandHandler, MessageHandler, filters, CallbackContext
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
@@ -126,9 +126,9 @@ def handle_captcha(update: Update, context: CallbackContext) -> None:
 
 # Регистрация команд и обработчиков
 start_handler = CommandHandler('start', start)
-url_handler = MessageHandler(Filters.entity('url'), handle_url)
-message_handler = MessageHandler(Filters.text & ~Filters.command, handle_message)
-captcha_handler = MessageHandler(Filters.text & ~Filters.command, handle_captcha)
+url_handler = MessageHandler(filters.Entity('url'), handle_url)
+message_handler = MessageHandler(filters.TEXT & ~filters.COMMAND, handle_message)
+captcha_handler = MessageHandler(filters.TEXT & ~filters.COMMAND, handle_captcha)
 
 dispatcher.add_handler(start_handler)
 dispatcher.add_handler(url_handler)
