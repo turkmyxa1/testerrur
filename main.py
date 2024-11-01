@@ -8,6 +8,7 @@ import time
 import requests
 import shutil
 import asyncio
+from selenium.webdriver.chrome.service import Service
 
 # Настройка логирования
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO)
@@ -28,7 +29,8 @@ options.add_argument("--no-sandbox")
 options.add_argument("--disable-dev-shm-usage")
 options.binary_location = chrome_path
 
-driver = webdriver.Chrome(service=webdriver.chrome.service.Service(chromedriver_path), options=options)
+service = Service(chromedriver_path)
+driver = webdriver.Chrome(service=service, options=options)
 
 # Глобальные переменные для хранения ссылок и текста сообщений
 forum_url = ""
