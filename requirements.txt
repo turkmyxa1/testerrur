@@ -1,4 +1,3 @@
 python-telegram-bot
 selenium
 requests
-python-dotenv
