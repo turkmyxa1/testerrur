@@ -1,18 +1,19 @@
 # Используем официальный образ Python
 FROM python:3.9-slim
 
-# Устанавливаем зависимости
+# Устанавливаем зависимости и необходимые инструменты
 RUN apt-get update && apt-get install -y \
     wget \
     gnupg \
     unzip \
     && wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb \
     && apt install ./google-chrome-stable_current_amd64.deb -y \
-    && CHROME_VERSION=$(google-chrome --version | awk '{print $3}') \
-    && wget https://chromedriver.storage.googleapis.com/${CHROME_VERSION}/chromedriver_linux64.zip \
+    && wget -q -O - https://chromedriver.storage.googleapis.com/LATEST_RELEASE | xargs -I {} wget https://chromedriver.storage.googleapis.com/{}/chromedriver_linux64.zip \
     && unzip chromedriver_linux64.zip \
     && mv chromedriver /usr/local/bin/ \
-    && chmod +x /usr/local/bin/chromedriver
+    && chmod +x /usr/local/bin/chromedriver \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
 
 # Копируем файлы проекта
 WORKDIR /app
