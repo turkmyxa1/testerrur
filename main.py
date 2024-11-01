@@ -140,4 +140,6 @@ application.add_handler(captcha_handler)
 # Запуск бота
 logger.info("Запуск бота")
 if __name__ == "__main__":
+    import nest_asyncio
+    nest_asyncio.apply()
     application.run_polling()
