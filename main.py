@@ -28,7 +28,7 @@ options.add_argument("--no-sandbox")
 options.add_argument("--disable-dev-shm-usage")
 options.binary_location = chrome_path
 
-driver = webdriver.Chrome(executable_path=chromedriver_path, options=options)
+driver = webdriver.Chrome(service=webdriver.chrome.service.Service(chromedriver_path), options=options)
 
 # Глобальные переменные для хранения ссылок и текста сообщений
 forum_url = ""
